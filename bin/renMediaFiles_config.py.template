@@ -1,0 +1,38 @@
+#! /usr/bin/env python
+
+filePrefix = 'IMG'
+
+#===============================================================================
+def getFileCameraCode(fileInfo):
+    # This subroutine should return a single upper case alphabetic character or None
+    # It is a fairly heuristic algorithm, use whatever you can to determine fairly accurately
+    # that it is indeed the camera you think it is. Model and serial number is good, 
+    # but if the camera does not write these to the EXIF then using: exiftool -s <mediafile>
+    # will give you more attributes to use
+
+    exifDict = fileInfo['exifDict']
+    if not exifDict: return None
+
+    if 'Model' in exifDict:
+        if 'SerialNumber' in exifDict:
+            if exifDict['Model'] == 'Canon EOS 350D DIGITAL':
+                if exifDict['SerialNumber'] == 1234567890:
+                    return 'B'
+
+            if exifDict['Model'] == 'Canon EOS 400D DIGITAL':
+                if exifDict['SerialNumber'] == 9876543210:
+                    return 'C'
+
+        if exifDict['Model'] == 'Canon DIGITAL IXUS 55':
+            if 'FirmwareRevision' in exifDict and exifDict['FirmwareRevision'] == '1.00 rev 3.00':
+                return 'A'
+
+    fileName = os.path.split(fileInfo['filePath'])[1]
+    if re.match('MVI_[0-9]{4}\.AVI', fileName):
+        if 'Software' in exifDict and exifDict['Software'] == 'CanonMVI02':
+            return 'A'
+
+    return None
+
+#===============================================================================
+# end

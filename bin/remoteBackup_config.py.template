@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+fromAddr = 'MyMachine:remoteBackup <username@gmail.com>'
+toAddrs  = ['username@gmail.com']
+
+server = {
+    'addr': 'smtp.gmail.com',
+    'port': 587,
+    'user': 'username@gmail.com',
+    'pass': None
+}
+
+totalSizeLimit = 10 * 1024 * 1024
+
+#-------------------------------------------------------------------------------
+def getFromAddr():
+    return fromAddr
+
+#-------------------------------------------------------------------------------
+def getToAddrs():
+    return toAddrs
+
+#-------------------------------------------------------------------------------
+def getServer(serverForce = {}):
+
+    for k in serverForce:
+        server[k] = serverForce[k]
+
+    import getpass
+    if not server['pass']:
+        server['pass'] = getpass.getpass("Enter password for '%s' [%s]': "%(server['user'], server['addr']))
+    return server
+
+#-------------------------------------------------------------------------------
+# end

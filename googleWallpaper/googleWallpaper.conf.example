@@ -1,0 +1,18 @@
+[cron]
+arg.imgh = 1200
+arg.safe = off
+query 7 = site:http://wall.alphacoders.com
+query.4 = wallpaper spring
+maxcount = 200
+query.1 = wallpaper nature
+query.3 = wallpaper coral
+query.2 = wallpaper mountain
+arg.imgw = 1600
+query.6 = sunset mountain wallpaper
+query.8 = site:http://7te.org
+
+[originalBackground]
+primary_color = #2c001e
+picture_options = zoom
+picture_filename = /usr/share/backgrounds/warty-final-ubuntu.png
+
